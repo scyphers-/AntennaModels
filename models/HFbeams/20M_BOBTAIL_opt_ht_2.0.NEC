@@ -1,0 +1,36 @@
+CM 20-Meter Bobtail Curtain Antenna Model
+CM Designed for ~14.2 MHz over Saltwater / Beach
+CM Bidirectional broadside pattern with vertical polarization.
+CM  --- Symbols / Variables ---
+CM  --- Calculations derived from elements ---
+CM  --- Geometry Cards (GW: Tag, Segments, X1, Y1, Z1, X2, Y2, Z2, Radius) ---
+CM  1. Left Vertical Element
+CM  2. Left Horizontal Phasing Section
+CM  3. Right Horizontal Phasing Section
+CM  4. Right Vertical Element
+CM  5. Center Vertical Element (Split into 2 wires to force an exact center feed segment)
+CM  --- End of Geometry ---
+CM  --- Ground Control (Real Ground / Average Soil) ---
+CM  --- Source / Excitation (Voltage feed at the center of the middle vertical) ---
+CM  Fed at wire 5, segment 7 (top segment of the lower half, creating a center feed)
+CM  --- Frequency Setup ---
+CM  --- Execution Commands ---
+CE
+SY freq=14.2	'Design Frequency in MHz
+SY rad=.00506	'Wire radius (#12 AWG copper wire)
+SY h_top=20	'Height of horizontal top wire above ground (feet)
+SY l_vert=16.04	'Length of the 1/4-wavelength vertical elements (feet)
+SY l_space=32.08	'Spacing between verticals (~1/2-wavelength phasing, feet)
+SY h_bot=h_top-l_vert	'Clearance of the bottom tips from the ground
+GW	1	15	0	-l_space	h_bot	0	-l_space	h_top	rad	'1/4 side
+GW	2	25	0	-l_space	h_top	0	0	h_top	rad	'1/2 wave top
+GW	3	25	0	0	h_top	0	l_space	h_top	rad	'1/2 wave top
+GW	4	15	0	l_space	h_bot	0	l_space	h_top	rad	'1/4 wave side
+GW	5	7	0	0	h_bot	0	0	(h_bot+l_vert/2)	rad	'1/8 wave feedpoint
+GW	6	7	0	0	(h_bot+l_vert/2)	0	0	h_top	rad	'1/8 wave
+GE	-1
+GN	3	0	0	0	81	5.0
+EK
+EX	0	5	7	0	1	0	0	'Seg 5 & 6 are a 1/4 1:1 dipole loaded
+FR	0	0	0	0	freq	0
+EN
