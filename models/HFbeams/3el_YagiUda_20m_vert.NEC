@@ -1,0 +1,43 @@
+CM Template 3el Yagi-Uda for 20 meters @ 50 feet model 
+CM Modified to be vertical element allowing tuning with Ht variable
+CM 
+CM Element Length Formulas
+CM Reflector Length 0.475 to 0.5
+CM (Typically ~5% longer than the driven element)
+CM Driven Element Length 0.45 to 0.48
+CM (Typically configured as a half-wave dipole, 
+CM Director Lengths  0.40 to 0.44
+CM (Each successive director is usually slightly shorter than the preceding one
+CM 
+CM Element Spacing Formulas
+CM Reflector to Driven Element Spacing: 0.15 to 0.25 (commonly 0.2 to 0.25)
+CM Driven Element to First Director Spacing: 0.10? to 0.15?
+CM Director to Director Spacing: 0.10? to 0.30?
+CM 
+CM 
+CM 
+CM 
+CE
+SY freq = 14.2	'Frequency
+SY ht = 15ft	'Mast mounted Height (feet)
+SY rdis = 0.9114*2	'Reflector distance
+SY ddis = 1.3716*2	'Director distance
+SY rad = .005	'Radius of wire (diameter 1 cm) expressed as meter?
+SY sol = 300000000	'Speed of light (rounded up)
+SY Hz = freq * 100000	'Frequency variable in Hz
+SY wavelength = sol / Hz	'Wavelength calc(lamda): Speed of light / frequency in Hz
+SY dir_len = (wavelength * 0.44) / 2	'Director half-length: SOL / freq * 0.44
+SY dr_len = (wavelength  * 0.47) / 2	'Driven element half-length: SOL / freq * 0.48
+SY ref_len = (wavelength  * 0.05) / 2	'Reflector half-length: SOL / freq * 0.50
+GW	1	19	ddis	0	ht+(dir_len/2)	ddis	0	ht-(dir_len/2)	rad	'Director
+GW	2	19	0	0	ht+(dr_len/2)	0	0	ht-(dr_len/2)	rad	'Driven
+GW	3	19	-rdis	0	ht+(ref_len/2)	-rdis	0	ht-(ref_len/2)	rad	'Reflector
+GE	1
+LD	5	1	0	0	24900000	'Alum. 6061-T6
+LD	5	2	0	0	24900000
+LD	5	3	0	0	24900000
+GN	2	0	0	0	81	5.0
+EK
+EX	0	2	10	0	1	0	0
+FR	0	0	0	0	freq	0
+EN
