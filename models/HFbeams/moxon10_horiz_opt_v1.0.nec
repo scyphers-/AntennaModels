@@ -1,0 +1,22 @@
+CM Moxon Rectangle:  20 meters Free Space #14 copper wire
+CM L. B. Cebik, W4RNL
+CM 
+CM modified to be frequency (freq) and install height (ht) dynamic model runs
+CM 
+CE
+SY wire=0.05	'making dynamic variable for wire gauge
+SY freq = 28.2	'14.2 modelled freq for a 20m moxon
+SY ht=8.30	'20m ht was 10.668
+GW	1	7	-1.905	0.2179	ht	-1.905	0.8275	ht	wire
+GW	2	45	-1.905	0.8275	ht	1.905	0.8275	ht	wire
+GW	3	7	1.905	0.8275	ht	1.905	0.2179	ht	wire
+GW	4	9	-1.905	0.1082	ht	-1.905	0	ht	wire
+GW	5	45	-1.905	0	ht	1.905	0	ht	wire
+GW	6	9	1.905	0	ht	1.905	0.1082	ht	wire
+GE	1
+LD	5	0	0	0	58000000
+GN	2	0	0	0	81	5.0
+EK
+EX	0	2	23	0	1	0	0
+FR	0	0	0	0	28.2	0
+EN
